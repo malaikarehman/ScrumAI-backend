@@ -184,6 +184,20 @@ def get_allowed_team_skills():
     return skills
 
 
+def _get_story_upload_text(request):
+    story_text = (request.POST.get('stories_text') or '').strip()
+    uploaded_file = request.FILES.get('stories_file')
+
+    if uploaded_file:
+        raw_content = uploaded_file.read()
+        if isinstance(raw_content, bytes):
+            story_text = raw_content.decode('utf-8-sig', errors='replace').strip()
+        else:
+            story_text = str(raw_content).strip()
+
+    return story_text
+
+
 # =========================
 # ProductOwner CRUD + Login
 # =========================
@@ -298,13 +312,13 @@ def upload_user_story(request):
         role       = request.POST.get('role')
         goal       = request.POST.get('goal')
         benefit    = request.POST.get('benefit')
-        stories_tx = (request.POST.get('stories_text') or '').strip()
+        stories_tx = _get_story_upload_text(request)
 
         if not all([owner_id, project_id, role, benefit]):
             return JsonResponse({'error': 'owner_id, project_id, role, benefit are required.'}, status=400)
 
         if not stories_tx:
-            return JsonResponse({'error': 'stories_text is required (one story per line).'}, status=400)
+            return JsonResponse({'error': 'stories_text or stories_file is required (one story per line).'}, status=400)
 
         # Validate owner exists
         try:

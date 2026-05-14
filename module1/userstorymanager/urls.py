@@ -13,6 +13,7 @@ urlpatterns = [
      path('delete/<int:pk>/', views.product_owner_delete, name='owner_delete'),
     path('login/', views.product_owner_login, name='owner_login'),
     path('create_backlog/', views.upload_user_story, name='upload_user_story'),
+    path('create_backlog/file/', views.upload_user_story, name='upload_user_story_file'),
     path('create_story/', views.create_story_with_llm, name='create_story_with_llm'),  # Create single story with LLM
     path('tasks/', views.get_all_tasks, name='get_all_tasks'),  #  Get all tasks
     path('tasks/<int:user_story_id>/', views.get_tasks_by_user_story, name='get_tasks_by_user_story'),  # Get tasks for a user story
