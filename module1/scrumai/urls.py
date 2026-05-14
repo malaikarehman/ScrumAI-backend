@@ -24,8 +24,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.http import JsonResponse
 
+def home(request):
+    return JsonResponse({
+        "message": "ScrumAI backend is running"
+    })
+
+
 urlpatterns = [
-    
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
     path('userstories/', include('userstorymanager.urls')),
     path('api/module2/', include('assignment_module.urls')),
@@ -34,10 +40,6 @@ urlpatterns = [
     path('api/sprint/', include('sprintmanager.urls')),
     path('api/dependencies/', include('taskdependency.urls')),
     path('api/delay-alerts/', include('delayalerts.urls')),
-    
-   
-
-    
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
