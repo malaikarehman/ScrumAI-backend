@@ -14,12 +14,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+"""
+URL configuration for scrumai project.
+"""
+
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import JsonResponse
 
 urlpatterns = [
+    
     path('admin/', admin.site.urls),
     path('userstories/', include('userstorymanager.urls')),
     path('api/module2/', include('assignment_module.urls')),
@@ -28,6 +34,7 @@ urlpatterns = [
     path('api/sprint/', include('sprintmanager.urls')),
     path('api/dependencies/', include('taskdependency.urls')),
     path('api/delay-alerts/', include('delayalerts.urls')),
+    
    
 
     
